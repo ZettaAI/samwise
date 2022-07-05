@@ -43,6 +43,11 @@ def run(
     i = 0
     while True:
         time.sleep(1)
+
+        if not t.is_alive():
+           storage.syncdirs(dirmapping)
+           break
+
         elapsed = datetime.now() - start
         if elapsed.total_seconds() // period > i:
 
@@ -50,9 +55,6 @@ def run(
                 printmsg("STARTING SYNCHRONIZATION")
 
             storage.syncdirs(dirmapping)
-
-            if not t.is_alive():
-                break
 
             i += 1
 
