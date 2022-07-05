@@ -1,4 +1,6 @@
 """Functions for managing files across storage systems."""
+from __future__ import annotations
+
 import os
 import subprocess
 

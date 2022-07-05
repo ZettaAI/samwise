@@ -1,4 +1,5 @@
 """Functions for parsing command files."""
+from __future__ import annotations
 
 
 def parsecmd(filename: str) -> list[str]:

@@ -1,4 +1,6 @@
 """Running functionality while periodically synchronizing directories elsewhere."""
+from __future__ import annotations
+
 import time
 import subprocess
 from typing import Callable
@@ -45,8 +47,8 @@ def run(
         time.sleep(1)
 
         if not t.is_alive():
-           storage.syncdirs(dirmapping)
-           break
+            storage.syncdirs(dirmapping)
+            break
 
         elapsed = datetime.now() - start
         if elapsed.total_seconds() // period > i:

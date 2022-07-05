@@ -1,4 +1,6 @@
 """Main interface for running local commands."""
+from __future__ import annotations
+
 import argparse
 
 from samwise import parse, run
