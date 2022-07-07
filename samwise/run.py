@@ -33,7 +33,7 @@ def run(
 
     if verbose:
         print("INITIALIZING SYNCHRONIZATION")
-    storage.initdirs(dirmapping)
+    storage.initdirs(dirmapping, verbose=verbose)
 
     if verbose:
         printmsg("STARTING MAIN THREAD")
@@ -47,7 +47,7 @@ def run(
         time.sleep(1)
 
         if not t.is_alive():
-            storage.syncdirs(dirmapping)
+            storage.syncdirs(dirmapping, verbose=verbose)
             break
 
         elapsed = datetime.now() - start
@@ -56,7 +56,7 @@ def run(
             if verbose:
                 printmsg("STARTING SYNCHRONIZATION")
 
-            storage.syncdirs(dirmapping)
+            storage.syncdirs(dirmapping, verbose=verbose)
 
             i += 1
 
