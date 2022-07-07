@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 
-from samwise import parse, run
+from samwise import parse, runcmd
 
 
 def main(
@@ -15,7 +15,7 @@ def main(
 
     args = parse.parsecmd(commandfilename)
 
-    run.runcmd(args, dirmapping, period=period, verbose=verbose)
+    runcmd(args, dirmapping, period=period, verbose=verbose)
 
 
 if __name__ == "__main__":
