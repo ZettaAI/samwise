@@ -16,6 +16,14 @@ def runcmd(
     period: int = 600,
     verbose: bool = True,
 ) -> None:
+    """Runs a shell command while synchronizing directories.
+
+    Args:
+        args: Shell command and its arguments
+        dirmapping: A dictionary from remote to local storage for synchronization
+        period: How often (in seconds) to synchronize the stored files
+        verbose: Whether or not to print messages when synchronization takes place
+    """
     # Make a partial fn that runs the command in a subprocess
 
     def startprocess():
@@ -30,6 +38,14 @@ def run(
     period: int = 600,
     verbose: bool = True,
 ) -> None:
+    """Runs a callable while synchronizing directories.
+
+    Args:
+        f: A python callable of some kind (function, partial, etc.)
+        dirmapping: A dictionary from remote to local storage for synchronization
+        period: How often (in seconds) to synchronize the stored files
+        verbose: Whether or not to print messages when synchronization takes place
+    """
 
     if verbose:
         print("INITIALIZING SYNCHRONIZATION")

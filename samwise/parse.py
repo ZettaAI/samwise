@@ -5,7 +5,13 @@ from typing import Iterable
 
 
 def parsecmd(filename: str) -> list[str]:
-    """Parses a file containing a command-line command."""
+    """Parses a file containing a command-line command.
+
+    Args:
+        filename: A path to the input file.
+    Returns:
+        A list of shell arguments
+    """
     with open(filename) as f:
         lines = f.readlines()
 
@@ -22,6 +28,13 @@ def parsecmd(filename: str) -> list[str]:
     return args
 
 
-def parsemap(mapargs: Iterable[str]) -> dict[str, str]:
-    """Parses an iterable of arguments into a directory mapping."""
-    return dict(arg.split("::") for arg in mapargs)
+def parsemap(mapargs: Iterable[str], sep="::") -> dict[str, str]:
+    """Parses an iterable of arguments into a directory mapping.
+
+    Args:
+        mapargs: A set of arguments splitting map items by a separator
+        sep: The separator to use when splitting the arguments. Default ::
+    Returns:
+        A dictionary containing each of the map items.
+    """
+    return dict(arg.split(sep) for arg in mapargs)
