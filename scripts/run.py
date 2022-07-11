@@ -21,10 +21,25 @@ def main(
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
 
-    ap.add_argument("commandfilename", type=str)
-    ap.add_argument("dirmapping", type=str, nargs="+")
-    ap.add_argument("--period", type=int, default=600)
-    ap.add_argument("--quiet", dest="verbose", action="store_false")
+    ap.add_argument("commandfilename", type=str, help="The command line to run")
+    ap.add_argument(
+        "dirmapping",
+        type=str,
+        nargs="+",
+        help=(
+            'The directories to map split by "::"s.'
+            " e.g., remote1::local1 remote2::local2"
+        ),
+    )
+    ap.add_argument(
+        "--period",
+        type=int,
+        default=600,
+        help="How often to synchronize directories (in seconds). Default=600",
+    )
+    ap.add_argument(
+        "--quiet", dest="verbose", action="store_false", help="Produce less output"
+    )
 
     args = ap.parse_args()
 
