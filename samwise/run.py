@@ -52,19 +52,26 @@ def run(
     storage.initdirs(dirmapping, verbose=verbose)
 
     if verbose:
-        printmsg("STARTING MAIN THREAD")
+        printmsg("STARTING SYNC THREAD")
 
-    t = Thread(target=f)
+    t = Thread(
+        target=syncthread,
+        args=(dirmapping),
+        kwargs=dict(period=period, verbose=verbose),
+    )
+    t.daemon = True
     t.start()
 
+    f()
+
+
+def syncthread(
+    dirmapping: dict[str, str], period: int = 600, verbose: bool = True
+) -> None:
     start = datetime.now()
     i = 0
     while True:
         time.sleep(1)
-
-        if not t.is_alive():
-            storage.syncdirs(dirmapping, verbose=verbose)
-            break
 
         elapsed = datetime.now() - start
         if elapsed.total_seconds() // period > i:
