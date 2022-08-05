@@ -67,10 +67,21 @@ def cloud_init_file(dockerimage: str, commandfilename: str):
     """
     command = parse.parsecmd(commandfilename)
 
-    return (
-        USERDATA_BASE
-        + f"\ndocker run -v /workspace:/workspace {dockerimage} {' '.join(command)}"
-    )
+    return USERDATA_BASE + f"\n{format_command(dockerimage, command)}"
+
+
+def format_command(
+    dockerimage: str, command: list[str], workspacedir: str = "/workspace"
+) -> str:
+    """Forms a complete docker run command from a container command."""
+    if workspacedir is not None:
+        return (
+            "docker run"
+            f" -v {workspacedir}:/workspace"
+            f" {dockerimage} {' '.join(command)}"
+        )
+    else:
+        return f"docker run {dockerimage} {' '.join(command)}"
 
 
 def create_instance(
