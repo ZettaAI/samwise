@@ -79,7 +79,11 @@ def syncthread(
             if verbose:
                 printmsg("STARTING SYNCHRONIZATION")
 
-            storage.syncdirs(dirmapping, verbose=verbose)
+            try:
+                storage.syncdirs(dirmapping, verbose=verbose)
+            except Exception as e:
+                print(e)
+                i -= 1  # retrying after the sleep
 
             i += 1
 
