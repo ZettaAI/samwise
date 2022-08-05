@@ -1,4 +1,6 @@
 """Creates an instance to run a preemptible command in the cloud."""
+from __future__ import annotations
+
 import argparse
 import tempfile
 
@@ -34,7 +36,7 @@ def fly(
         )
 
 
-if __name__ == "__main__":
+def main():
     ap = argparse.ArgumentParser()
 
     ap.add_argument(

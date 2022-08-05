@@ -2,6 +2,8 @@
 
 Useful for testing command files before sending them to remote instances with fly.
 """
+from __future__ import annotations
+
 import os
 import argparse
 import subprocess
@@ -23,14 +25,12 @@ def flap(
     formatted = cloud.format_command(dockerimage, rawcommand, workspacedir).split()
 
     if sudo:
-        print(["sudo"] + formatted)
         subprocess.run(["sudo"] + formatted)
     else:
-        print(formatted)
         subprocess.run(formatted)
 
 
-if __name__ == "__main__":
+def main():
     ap = argparse.ArgumentParser()
 
     ap.add_argument(

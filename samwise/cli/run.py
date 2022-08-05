@@ -6,7 +6,7 @@ import argparse
 from samwise import parse, runcmd
 
 
-def main(
+def run(
     commandfilename: str,
     dirmapping: dict[str, str],
     period: int = 600,
@@ -18,7 +18,7 @@ def main(
     runcmd(args, dirmapping, period=period, verbose=verbose)
 
 
-if __name__ == "__main__":
+def main():
     ap = argparse.ArgumentParser()
 
     ap.add_argument("commandfilename", type=str, help="The command line to run")
@@ -45,4 +45,4 @@ if __name__ == "__main__":
 
     args.dirmapping = dict(arg.split("::") for arg in args.dirmapping)
 
-    main(**vars(args))
+    run(**vars(args))
