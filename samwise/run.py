@@ -56,7 +56,7 @@ def run(
 
     t = Thread(
         target=syncthread,
-        args=(dirmapping),
+        args=(dirmapping,),
         kwargs=dict(period=period, verbose=verbose),
     )
     t.daemon = True
