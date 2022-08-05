@@ -78,10 +78,17 @@ def format_command(
         return (
             "docker run"
             f" -v {workspacedir}:/workspace"
+            f" -e PYTHONUNBUFFERED=1"
+            f" --shm-size 1g"
             f" {dockerimage} {' '.join(command)}"
         )
     else:
-        return f"docker run {dockerimage} {' '.join(command)}"
+        return (
+            "docker run"
+            f" -e PYTHONUNBUFFERED=1"
+            f" --shm-size 1g"
+            f" {dockerimage} {' '.join(command)}"
+        )
 
 
 def create_instance(
