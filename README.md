@@ -32,13 +32,18 @@ runcmd(["longrunningcmd", "arg1", "arg2"], dirmapping)
 
 ...or using the command line
 ```bash
-python scripts/run.py commandfilename remote1::local1 remote2::local2
+samwise-run commandfilename remote1::local1 remote2::local2
 ```
 
 ## Running compatible containers in the cloud
 This package also provides some small wrappers to make launching containers running commands easier. Using this part of the tools means that you don't need to worry about configuring instances and coordinating jobs. Simply wrap the relevant code into a docker container and launch your instances from any other machine you'd like.
 ```bash
-python scripts/fly.py ${commandfilename} ${dockerimage} ${instancename}
+samwise-fly ${commandfilename} ${dockerimage} ${instancename}
 ```
 
-See the scripts help documentation for more information and arguments.
+See the command's help documentation for more information and arguments.
+
+Testing these commands can be particularly important since it takes some time for the new instance to start. You can use the `flap` command to test your flight.
+```bash
+samwise-flap ${commandfilename} ${dockerimage}
+```
