@@ -91,8 +91,8 @@ def format_command(
         )
 
 
-def create_instance(
-    instancename: str,
+def create_instance_group(
+    groupname: str,
     initfilename: str,
     zone: str = "us-east1-c",
     gpu: str = "nvidia-tesla-t4",
@@ -102,7 +102,7 @@ def create_instance(
     preemptible: bool = True,
     verbose: bool = True,
 ) -> None:
-    """Creates an instance (currently just using gcloud).
+    """Creates an instance group (currently just using gcloud).
 
     Args:
         instancename: how you'd like to name your instance.
@@ -111,13 +111,12 @@ def create_instance(
         bootdisksize: how large of a boot disk you'd like (Default: "50GB")
         preemptible: whether you'd like your instance to be preemptible (Default: True)
     """
-    args = [
+    template_args = [
         "gcloud",
         "compute",
-        "instances",
+        "instance-templates",
         "create",
-        instancename,
-        f"--zone={zone}",
+        groupname,
         "--image-family",
         "ubuntu-2204-lts",
         "--image-project",
@@ -131,12 +130,26 @@ def create_instance(
     ]
 
     if preemptible:
-        args.append("--preemptible")
+        template_args.append("--preemptible")
 
     if not verbose:
-        args.append("--quiet")
+        template_args.append("--quiet")
 
     if gpu is not None:
-        args.append(f"--accelerator=type={gpu},count={gpu_count}")
+        template_args.append(f"--accelerator=type={gpu},count={gpu_count}")
 
-    subprocess.run(args)
+    subprocess.check_call(template_args)
+
+    group_args = [
+        "gcloud",
+        "compute",
+        "instance-groups",
+        "managed",
+        "create",
+        groupname,
+        f"--zone={zone}",
+        "--size=1",
+        f"--template={groupname}",
+    ]
+
+    subprocess.check_call(group_args)
