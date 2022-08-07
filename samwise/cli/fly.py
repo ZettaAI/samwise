@@ -10,11 +10,11 @@ from samwise import cloud
 def fly(
     commandfilename: str,
     dockerimage: str,
-    instancetype: str,
+    groupname: str,
     zone: str = "us-east1-c",
     gpu: str = "nvidia-tesla-t4",
     gpu_count: int = 1,
-    instancename: str = "n1-standard-16",
+    instancetype: str = "n1-standard-16",
     bootdisksize: str = "50GB",
     preemptible: bool = True,
     verbose: bool = True,
@@ -23,8 +23,8 @@ def fly(
     with tempfile.NamedTemporaryFile("w") as tmp:
         tmp.write(cloud.cloud_init_file(dockerimage, commandfilename))
         tmp.flush()
-        cloud.create_instance(
-            instancename,
+        cloud.create_instance_group(
+            groupname,
             tmp.name,
             zone=zone,
             gpu=gpu,
@@ -46,9 +46,9 @@ def main():
     )
     ap.add_argument("dockerimage", type=str, help="The name of your docker image")
     ap.add_argument(
-        "instancename",
+        "groupname",
         type=str,
-        help="A name for the instance running this docker container",
+        help="A name for the instance group running this docker container",
     )
     ap.add_argument(
         "--zone",
