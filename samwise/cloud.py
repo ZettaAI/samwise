@@ -79,14 +79,14 @@ def format_command(
             "docker run"
             f" -v {workspacedir}:/workspace"
             f" -e PYTHONUNBUFFERED=1"
-            f" --shm-size 1g"
+            f" --shm-size 4g"
             f" {dockerimage} {' '.join(command)}"
         )
     else:
         return (
             "docker run"
             f" -e PYTHONUNBUFFERED=1"
-            f" --shm-size 1g"
+            f" --shm-size 4g"
             f" {dockerimage} {' '.join(command)}"
         )
 
