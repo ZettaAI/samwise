@@ -64,6 +64,9 @@ def run(
 
     f()
 
+    # one final sync to catch final products
+    storage.syncdirs(dirmapping, verbose=verbose)
+
 
 def syncthread(
     dirmapping: dict[str, str], period: int = 600, verbose: bool = True
